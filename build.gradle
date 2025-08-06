@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'vniiem'
+version = '1.0'
+sourceCompatibility = 11
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.miglayout:miglayout-swing:5.2'
+}
+
+application {
+    mainClass = 'vniiem.TLMMonitor'
+}
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'vniiem.TLMMonitor'
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+        }
+    }
+}
